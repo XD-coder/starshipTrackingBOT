@@ -3,7 +3,9 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-# Load environment variables
+
+import sys
+sys.dont_write_bytecode = True
 load_dotenv()
 
 # Bot configuration

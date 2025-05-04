@@ -26,6 +26,8 @@ A Discord bot built with discord.py for tracking and managing starship-related i
 - Server information command
 - Latency checking command
 - Modular cog-based structure for easy expansion
+- Road Closures command `roadclosure` , shows the latest set of road closures.
+- Monitor road closures each hour and notify the channel if any changes .
 
 ## Available Commands
 
