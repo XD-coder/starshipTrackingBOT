@@ -1,46 +1,12 @@
 {
     "monitoring_channels": [
+        1368368347489636372,
         1368341030390468639
     ],
     "seen_closure_ids": [
-        "1d1b02ce-2c20-5611-bdea-de8aaedd6dca"
+        "11a9a8c3-e80c-5f1e-94d0-7cfb4c4b8bb9",
+        "72465828-db2d-56ae-9f78-66f23766f7d1",
+        "0d502c4b-34c0-5648-b950-104a864f4be8"
     ],
-    "managed_closures": [
-        {
-            "id": "a409842a-1463-42fa-9b1b-8f00873c41fa",
-            "date": "May 6,2025 at 10:30 CDT to 2:30 CDT",
-            "status": "highway 4 closure",
-            "time": "10:30pm CDT to 2:30am CDT",
-            "timestamps": {
-                "start": 1710162000,
-                "end": 1710205200
-            },
-            "type": "delay",
-            "notes": null
-        },
-        {
-            "id": "1df48f16-e4df-46c1-8b3a-53ff9af1142c",
-            "date": "May 15, 2025",
-            "status": "HWY 4 and beach closure",
-            "time": "07:30 am to 08:00am",
-            "timestamps": {
-                "start": 1747294200,
-                "end": 1747296000
-            },
-            "type": "launch",
-            "notes": "LIFT OFF!!!!"
-        },
-        {
-            "id": "b74fc503-2e82-4e4a-8150-6f7cde48463f",
-            "date": "May 15, 2025",
-            "status": "HWY 4 and beach closure",
-            "time": "07:30 am to 08:00am",
-            "timestamps": {
-                "start": 1747294200,
-                "end": 1747296000
-            },
-            "type": "launch",
-            "notes": "LIFT OFF!!!!"
-        }
-    ]
+    "managed_closures": []
 }
