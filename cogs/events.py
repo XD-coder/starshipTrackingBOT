@@ -364,7 +364,7 @@ class Events(commands.Cog):
 
         # Build the embed
         embed = discord.Embed(title="Current Road Closures & Updates", color=discord.Color.blue(), timestamp=discord.utils.utcnow()) # More general title
-        embed.set_footer(text=f"API Data Source: nerdpg.live | Local Data Managed by Bot") # Updated footer
+        embed.set_footer(text=f"API Data Source: Cameron County | Local Data Managed by Bot") # Updated footer
 
         if not all_closures:
             embed.description = "✅ No active road closures or updates reported."
@@ -398,7 +398,7 @@ class Events(commands.Cog):
                          continue
 
                     # Format time using Discord's timestamps
-                    time_msg = f"<t:{start_ts_int}:F> to <t:{end_ts_int}:F>"
+                    time_msg = f"<t:{start_ts_int}:f> to <t:{end_ts_int}:f>"
                     time_msg += f" (<t:{end_ts_int}:R>)" # Add relative time
 
                     # Check if it's a managed closure to label the source
@@ -515,11 +515,7 @@ class Events(commands.Cog):
              await ctx.send("❌ Can only monitor text channels.")
              return
 
-        perms = target_channel.guild.me.permissions_in(target_channel)
-        if not perms.send_messages or not perms.embed_links:
-             log.warning(f"Bot lacks send/embed permissions in target channel {target_channel.id} ({target_channel.name}) for monitoring setup.")
-             await ctx.send(f"❌ I need permissions to send messages and embeds in {target_channel.mention} to monitor it.")
-             return
+        
 
 
         self.monitoring_channels.add(target_channel.id)
@@ -1156,7 +1152,7 @@ class Events(commands.Cog):
 
     # --- Background Task (API Checking) ---
     # Removed the duplicate @tasks.loop decorator
-    @tasks.loop(hours=1)
+    @tasks.loop(seconds=30)
     async def check_closures(self):
         """Background task to check external API for new road closures."""
         # Ensure there are channels to monitor
@@ -1171,9 +1167,7 @@ class Events(commands.Cog):
 
         if not latest_closures:
              log.debug("Task 'check_closures': No closures returned from API (fetch failed or API empty). Skipping notification check.")
-             # We still need to update the seen_closure_ids based on what was *last successfully fetched*
-             # from the API, not just this empty result, to prune old IDs.
-             # This is complex - skipping simple pruning for now.
+        
              return # No new closures if the list is empty
 
 
