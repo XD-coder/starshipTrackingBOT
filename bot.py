@@ -11,7 +11,7 @@ load_dotenv()
 # Bot configuration
 TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('COMMAND_PREFIX', '!')
-
+testTOKEN = os.getenv('TEST_TOKEN')
 # Set up intents
 intents = discord.Intents.default()
 intents.message_content = True  # Required for message content access
@@ -56,7 +56,7 @@ async def on_command_error(ctx, error):
 async def main():
     async with bot:
         await load_cogs()
-        await bot.start(TOKEN)
+        await bot.start(testTOKEN)
 
 if __name__ == '__main__':
     import asyncio
