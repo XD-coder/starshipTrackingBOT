@@ -1,4 +1,6 @@
-import requests
+import datetime
+import pytz
+cdt = pytz.timezone('America/Chicago') # CDT timezone
+now = datetime.datetime.now(cdt)
 
-something = requests.get("https://starbase.nerdpg.live/api/json/roadClosures")
-print(something.content)
+print(f'({now.hour}  {now.minute} )')

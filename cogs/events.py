@@ -194,6 +194,7 @@ class Events(commands.Cog):
                     try:
                         closure_status = closure.get('status', 'Unknown Status')
                         closure_time_str = closure.get('time', 'N/A')
+                        closure_date = closure.get('date', 'someday')
                         
                         # Use UTC timestamps for Discord's built-in time formatting
                         start_ts = int(closure['timestamps']['start'])
@@ -206,7 +207,7 @@ class Events(commands.Cog):
                         local_time_display = f"<t:{start_ts}:f> to <t:{end_ts}:f>"
 
                         # Combine them with a specific format
-                        full_time_entry = f"**{main_time_display} CDT**\n*(Local: {local_time_display})*"
+                        full_time_entry = f"**ON** {closure_date}\n**FROM** {main_time_display} CDT\n*(**Local:** {local_time_display})*"
                         
                         closures_by_status[closure_status].append(full_time_entry)
                     except (KeyError, ValueError, TypeError): 
@@ -577,7 +578,7 @@ class Events(commands.Cog):
 
 
     # --- Background Task (API Checking) ---
-    @tasks.loop(hours=1) # Production interval
+    @tasks.loop(seconds=10) # Production interval
     async def check_closures(self):
         """Background task to check external API for new road closures."""
         if not self.monitoring_channels: return
@@ -620,6 +621,8 @@ class Events(commands.Cog):
                                 
                                 # Use 'time' field as the main time heading
                                 main_time = closure.get('time', 'N/A')
+                                date = closure.get('date', 'N/A')
+                                
                                 
                                 status_emoji={
                                     "Possible Closure":"⚠️",
@@ -633,6 +636,7 @@ class Events(commands.Cog):
                                     title=f"{status_emoji} New API Closure Update", 
                                     description=(
                                         f"**Status:** {status}\n"
+                                        f"**Date:** {date}\n"
                                         f"**Time:** {main_time}\n CDT" # Main time
                                         f"*(Local: <t:{start}:f> to <t:{end}:f>)*\n" # Local time using timestamps
                                         f"**Type:** {closure.get('type', 'N/A')}\n"

@@ -3,7 +3,14 @@
         1368341030390468639
     ],
     "seen_closure_ids": [
+        "d4d71041-d88a-5d32-98e6-7ce3e83e860c",
+        "c78b01d9-f318-55bd-abf7-3d20b2eacd86",
+        "ceda2ef0-182d-59ab-9dd2-b17d4e76fc36",
+        "2486a7ec-e2fa-5fec-8fdf-1e203612a38e",
+        "d97f3d98-81e7-5d77-827b-6cea8fdb15d1",
+        "880a0575-f0aa-573d-a6e2-23ba3b60fa26",
         "6f5c5b1f-8348-5ce4-905b-cb6d120d204e",
+        "f1f66b36-f3a7-5798-acf9-bc4ba2394c70",
         "493b6d8e-58a9-556f-9c05-79bd22a49773"
     ],
     "managed_closures": [
@@ -43,5 +50,6 @@
             "type": "launch",
             "notes": "LIFT OFF!!!!"
         }
-    ]
+    ],
+    "active_timing_countdowns": {}
 }

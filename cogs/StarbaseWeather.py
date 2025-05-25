@@ -414,9 +414,23 @@ class StarbaseWeatherCog(commands.Cog):
 
 
     # --- Hourly Weather Update Task ---
-    @tasks.loop(hours=3)
+    @tasks.loop(seconds=60) # Check every half hour, but only run logic every 3 hours
     async def hourly_weather_update_task(self):
         """Task that sends hourly weather updates to registered channels, showing both Metric and Imperial."""
+        # Check current time in CDT
+        import datetime
+        import pytz
+
+        cdt = pytz.timezone('America/Chicago') # CDT timezone
+        now = datetime.datetime.now(cdt)
+
+        # Only proceed if the current hour is divisible by 3
+        if (now.hour - 1) % 3 != 0 and now.minute == 0:
+            logger.debug(f"Skipping hourly weather update task. Current hour ({now.hour}) is not divisible by 3.")
+            return
+
+        logger.info(f"Running hourly weather update task for {STARBASE_LOCATION_NAME} at hour {now.hour} CDT.")
+
         if not self.is_ready:
              logger.warning("Hourly task tried to run but cog is not ready (API key missing).")
              return # Don't run if API key is missing
@@ -426,7 +440,6 @@ class StarbaseWeatherCog(commands.Cog):
             logger.debug("No channels registered for hourly updates. Skipping task.")
             return
 
-        logger.info(f"Running hourly weather update task for {STARBASE_LOCATION_NAME}")
         data = self.fetch_weather_data(FORECAST_URL)
 
         if data is None or not data.get('list'):
@@ -549,7 +562,7 @@ class StarbaseWeatherCog(commands.Cog):
                 logger.info(f"Removed {len(channels_to_remove)} invalid channels from hourly updates. {len(self.hourly_update_channels)} channels remaining.")
 
             logger.info(f"Hourly update task finished. Sent to {successful_sends} channels, failed for {failed_sends}.")
-
+            await asyncio.sleep(100) # Wait for 100s before running again
         except Exception as e:
             logger.error(f"An unexpected error occurred during hourly weather update task: {e}", exc_info=True)
 
